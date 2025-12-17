@@ -1,0 +1,23 @@
+[project]
+name = "ozx-tck"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Chris Barnes", email = "chris.barnes@gerbi-gmb.de" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+ozx-tck = "ozx_tck:main"
+
+[build-system]
+requires = ["uv_build>=0.9.8,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+    "ruff>=0.14.9",
+]
