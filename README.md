@@ -5,3 +5,9 @@ described in [RFC-9 of the OME-Zarr specification](https://ngff.openmicroscopy.o
 
 Generates a number of .ozx files for valid, warning, and error cases.
 Implementors of .ozx should use these files to check that their own implementations can correctly validate the resulting data.
+
+## Features
+
+- [x] generate valid, warning, and error test cases
+- [ ] validate existing .ozx files
+- [ ] test hardness wrapping both
