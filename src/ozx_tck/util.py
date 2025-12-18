@@ -4,14 +4,12 @@ from dataclasses import dataclass
 import json
 from collections import deque
 from typing import Any
-import os
 from zipfile import ZipFile
 import logging
 
-OME_ZARR_VERSION = os.environ.get("OME_ZARR_VERSION", "0.6")
-
 logger = logging.getLogger(__name__)
 
+SUBCOMMANDS = dict()
 
 @dataclass
 class FileEntry:
@@ -84,9 +82,7 @@ def walk_files(root: Path, metadata: bool | None = None) -> Iterable[FileEntry]:
             to_visit.append(dirpath / dname)
 
 
-def make_zip_comment(
-    version: str = OME_ZARR_VERSION, json_first: bool | None = True
-) -> bytes:
+def make_zip_comment(version: str, json_first: bool | None = True) -> bytes:
     d: dict[str, Any] = {
         "ome": {
             "version": version,

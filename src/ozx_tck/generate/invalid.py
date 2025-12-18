@@ -6,11 +6,11 @@ from zipfile import ZipFile
 import shlex
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from .util import walk_files_sorted, make_zip_comment
-from .base import Writer
+from ..util import walk_files_sorted, make_zip_comment
+from .base import CaseWriter
 
 
-class ErrorWriter(Writer):
+class ErrorWriter(CaseWriter):
     STATE = "error"
 
 
@@ -73,7 +73,9 @@ class Multipart(ErrorWriter):
         container.mkdir()
         root = container / (self.zip_path.stem + ".zip")
         sp.run(
-            shlex.split(f"zip {self.zip_path} --out {root} -s {maxsize}"), check=True
+            shlex.split(f"zip {self.zip_path} --out {root} -s {maxsize}"),
+            check=True,
+            capture_output=True,
         )
         try:
             self.zip_path.unlink()

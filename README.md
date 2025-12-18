@@ -10,4 +10,4 @@ Implementors of .ozx should use these files to check that their own implementati
 
 - [x] generate valid, warning, and error test cases
 - [ ] validate existing .ozx files
-- [ ] test hardness wrapping both
+- [ ] test harness wrapping both

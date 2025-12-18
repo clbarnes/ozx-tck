@@ -2,13 +2,12 @@ from __future__ import annotations
 from pathlib import Path
 from abc import ABC, abstractmethod
 from typing import Literal
-from .util import is_array, ome_zarr_version
+from ..util import is_array, ome_zarr_version
+
+CASE_WRITERS: dict[str, type[CaseWriter]] = dict()
 
 
-REGISTRY: dict[str, type[Writer]] = dict()
-
-
-class Writer(ABC):
+class CaseWriter(ABC):
     STATE: Literal["valid", "warn", "error"]
 
     def __init__(self, zip_dir: Path, zarr_root: Path) -> None:
@@ -46,4 +45,4 @@ class Writer(ABC):
 
     @classmethod
     def register(cls):
-        REGISTRY[cls.slug()] = cls
+        CASE_WRITERS[cls.slug()] = cls

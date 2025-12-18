@@ -1,11 +1,11 @@
 from zipfile import ZipFile, ZIP_DEFLATED
 from random import Random
 
-from .util import walk_files_sorted, make_zip_comment
-from .base import Writer
+from ..util import walk_files_sorted, make_zip_comment
+from .base import CaseWriter
 
 
-class WarnWriter(Writer):
+class WarnWriter(CaseWriter):
     STATE = "warn"
 
 

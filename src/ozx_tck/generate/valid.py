@@ -1,12 +1,12 @@
 from zipfile import ZipFile
 import logging
-from .util import walk_files_sorted, make_zip_comment
-from .base import Writer
+from ..util import walk_files_sorted, make_zip_comment
+from .base import CaseWriter
 
 logger = logging.getLogger(__name__)
 
 
-class Valid(Writer):
+class Valid(CaseWriter):
     STATE = "valid"
 
     def _write(self):

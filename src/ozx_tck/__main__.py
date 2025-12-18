@@ -1,22 +1,21 @@
-from pathlib import Path
-from . import REGISTRY
 import logging
 from argparse import ArgumentParser
+
+from . import generate as _  # noqa: F401
+from .executor import EXECUTORS
 
 logger = logging.getLogger(__name__)
 
 
 def main(raw_args=None):
     parser = ArgumentParser("ozx-tck")
-    parser.add_argument("zarr_root", type=Path)
-    parser.add_argument("output_root", type=Path)
+    subparsers = parser.add_subparsers()
+
+    for executor in EXECUTORS.values():
+        executor.add_parser(subparsers)
+
     args = parser.parse_args(raw_args)
-    for slug, Cls in REGISTRY.items():
-        logger.info("Processing %s", slug)
-        d: Path = args.output_root / Cls.STATE
-        d.mkdir(exist_ok=True, parents=True)
-        inst = Cls(d, args.zarr_root)
-        inst.write()
+    args.func(args)
 
 
 if __name__ == "__main__":
