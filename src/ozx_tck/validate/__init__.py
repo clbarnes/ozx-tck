@@ -18,11 +18,17 @@ logger = logging.getLogger(__name__)
 class Validate(Executor):
     def populate_parser(self, parser: ArgumentParser):
         super().populate_parser(parser)
-        parser.add_argument("path", nargs="+", type=Path)
+        parser.description = "Validate existing OZX files."
+        parser.add_argument("path", nargs="+", type=Path, help="path to an OZX file")
         parser.add_argument(
             "-s", "--strict", action="store_true", help="fail on a warning case"
         )
-        parser.add_argument("-f", "--fail-fast", action="store_true")
+        parser.add_argument(
+            "-f",
+            "--fail-fast",
+            action="store_true",
+            help="exit on the first validation failure",
+        )
 
     def execute(self, args: Namespace):
         super().execute(args)

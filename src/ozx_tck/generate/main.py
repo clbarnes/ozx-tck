@@ -11,8 +11,21 @@ logger = logging.getLogger(__name__)
 class Generate(Executor):
     def populate_parser(self, parser: ArgumentParser):
         super().populate_parser(parser)
-        parser.add_argument("zarr_root", type=Path)
-        parser.add_argument("output_root", type=Path)
+        parser.description = "Generate examples of OZX files which are valid, should throw warnings, and should error."
+        parser.add_argument(
+            "zarr_root",
+            type=Path,
+            help="local path to existing valid OME-Zarr hierarchy root",
+        )
+        parser.add_argument(
+            "output_root",
+            type=Path,
+            help=(
+                "path to an empty target directory; "
+                "will populate with `valid`, `warn`, and `error` directories, "
+                "each of which contains the relevant examples"
+            ),
+        )
 
     def execute(self, args: Namespace):
         super().execute(args)

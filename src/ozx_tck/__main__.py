@@ -17,7 +17,15 @@ def setup_logging(verbosity: int | None):
 
 
 def main(raw_args=None):
-    common = ArgumentParser("ozx-tck")
+    common = ArgumentParser(
+        "ozx-tck",
+        add_help=False,
+        description=(
+            "Technology Compatibility Toolkit for OZX files; "
+            "single-file archives of OME-Zarr hierarchies. "
+            "See subcommands for full functionality."
+        ),
+    )
     common.add_argument("-v", "--verbose", default=0, action="count")
 
     (initial_args, remaining) = common.parse_known_args(raw_args)
