@@ -2,14 +2,16 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from argparse import ArgumentParser, Namespace
 from typing import Any
+import logging
 
+logger = logging.getLogger(__name__)
 EXECUTORS: dict[str, Executor] = dict()
 
 
 class Executor(ABC):
     @abstractmethod
     def populate_parser(self, parser: ArgumentParser):
-        raise NotImplementedError
+        logger.debug("populating parser from %s", type(self).__name__)
 
     def add_parser(
         self, add_subparser, add_subparser_kwargs: dict[str, Any] | None = None
@@ -24,8 +26,4 @@ class Executor(ABC):
 
     @abstractmethod
     def execute(self, args: Namespace):
-        raise NotImplementedError
-
-    @classmethod
-    def register(cls):
-        EXECUTORS[cls.__name__] = cls()
+        logger.debug("executing %s with args %s", type(self).__name__, args)

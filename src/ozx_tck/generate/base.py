@@ -1,14 +1,16 @@
 from __future__ import annotations
 from pathlib import Path
 from abc import ABC, abstractmethod
-from typing import Literal
-from ..util import is_array, ome_zarr_version
+import logging
 
+from ..util import is_array, ome_zarr_version, State
+
+logger = logging.getLogger(__name__)
 CASE_WRITERS: dict[str, type[CaseWriter]] = dict()
 
 
 class CaseWriter(ABC):
-    STATE: Literal["valid", "warn", "error"]
+    STATE: State
 
     def __init__(self, zip_dir: Path, zarr_root: Path) -> None:
         self.zip_dir = zip_dir
@@ -45,4 +47,6 @@ class CaseWriter(ABC):
 
     @classmethod
     def register(cls):
-        CASE_WRITERS[cls.slug()] = cls
+        slug = cls.slug()
+        logger.debug("registering case %s", cls.__name__)
+        CASE_WRITERS[slug] = cls

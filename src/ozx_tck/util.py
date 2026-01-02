@@ -3,13 +3,16 @@ from pathlib import Path
 from dataclasses import dataclass
 import json
 from collections import deque
-from typing import Any
+from typing import Any, Literal
 from zipfile import ZipFile
 import logging
 
 logger = logging.getLogger(__name__)
 
 SUBCOMMANDS = dict()
+
+type State = Literal["valid", "warn", "error"]
+
 
 @dataclass
 class FileEntry:
