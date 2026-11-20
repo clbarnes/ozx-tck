@@ -1,11 +1,12 @@
 from __future__ import annotations
+
+import logging
 from abc import ABC, abstractmethod
 from argparse import ArgumentParser, Namespace
 from typing import Any
-import logging
 
 logger = logging.getLogger(__name__)
-EXECUTORS: dict[str, Executor] = dict()
+EXECUTORS: dict[str, Executor] = {}
 
 
 class Executor(ABC):
@@ -17,7 +18,7 @@ class Executor(ABC):
         self, add_subparser, add_subparser_kwargs: dict[str, Any] | None = None
     ):
         if add_subparser_kwargs is None:
-            add_subparser_kwargs = dict()
+            add_subparser_kwargs = {}
         parser: ArgumentParser = add_subparser.add_parser(
             type(self).__name__.lower(), **add_subparser_kwargs
         )
