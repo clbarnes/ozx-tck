@@ -1,7 +1,7 @@
-from zipfile import ZipFile, ZIP_DEFLATED
 from random import Random
+from zipfile import ZIP_DEFLATED, ZipFile
 
-from ..util import walk_files_sorted, make_zip_comment
+from ..util import make_zip_comment, walk_files_sorted
 from .base import CaseWriter
 
 

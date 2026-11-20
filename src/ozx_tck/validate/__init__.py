@@ -1,13 +1,15 @@
 from __future__ import annotations
+
+import json
+import logging
+import sys
 from argparse import ArgumentParser, Namespace
+from collections.abc import Sequence
 from contextlib import AbstractContextManager
 from dataclasses import dataclass
-import json
 from pathlib import Path
-import sys
-from typing import Self, Sequence
+from typing import Self
 from zipfile import ZipFile, ZipInfo
-import logging
 
 from ..executor import Executor
 from ..util import State
@@ -79,7 +81,7 @@ class BfsChecker:
             return self.bfs
         last = elems.pop()
 
-        if not last == "zarr.json":
+        if last != "zarr.json":
             return self.bfs
 
         is_bfs = self.bfs
@@ -195,7 +197,7 @@ class Validator(AbstractContextManager):
             self.add_event(
                 "warn", "JSON comment does not show metadata files as sorted"
             )
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             self.add_event("warn", f"JSON comment malformed: {e}")
         return False
 

@@ -1,12 +1,13 @@
 import json
-from math import ceil
-from random import Random
-import subprocess as sp
-from zipfile import ZipFile
 import shlex
+import subprocess as sp
+from math import ceil
 from pathlib import Path
+from random import Random
 from tempfile import TemporaryDirectory
-from ..util import walk_files_sorted, make_zip_comment
+from zipfile import ZipFile
+
+from ..util import make_zip_comment, walk_files_sorted
 from .base import CaseWriter
 
 

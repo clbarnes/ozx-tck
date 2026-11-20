@@ -1,6 +1,6 @@
+import logging
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
-import logging
 
 from ..executor import Executor
 from .base import CASE_WRITERS

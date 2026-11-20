@@ -1,12 +1,13 @@
 from __future__ import annotations
-from pathlib import Path
-from abc import ABC, abstractmethod
-import logging
 
-from ..util import is_array, ome_zarr_version, State
+import logging
+from abc import ABC, abstractmethod
+from pathlib import Path
+
+from ..util import State, is_array, ome_zarr_version
 
 logger = logging.getLogger(__name__)
-CASE_WRITERS: dict[str, type[CaseWriter]] = dict()
+CASE_WRITERS: dict[str, type[CaseWriter]] = {}
 
 
 class CaseWriter(ABC):

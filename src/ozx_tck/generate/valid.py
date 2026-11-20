@@ -1,6 +1,7 @@
-from zipfile import ZipFile
 import logging
-from ..util import walk_files_sorted, make_zip_comment
+from zipfile import ZipFile
+
+from ..util import make_zip_comment, walk_files_sorted
 from .base import CaseWriter
 
 logger = logging.getLogger(__name__)

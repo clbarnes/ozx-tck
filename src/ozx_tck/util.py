@@ -1,15 +1,15 @@
-from collections.abc import Iterable
-from pathlib import Path
-from dataclasses import dataclass
 import json
+import logging
 from collections import deque
+from collections.abc import Iterable
+from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Literal
 from zipfile import ZipFile
-import logging
 
 logger = logging.getLogger(__name__)
 
-SUBCOMMANDS = dict()
+SUBCOMMANDS = {}
 
 type State = Literal["valid", "warn", "error"]
 
@@ -111,7 +111,7 @@ def ome_zarr_version(root_dir: Path) -> str:
         raise NoZarrJson()
 
     d = json.loads(p.read_text())
-    if "ome" not in d.get("attributes", dict()):
+    if "ome" not in d.get("attributes", {}):
         logger.error("Got zarr metadata object: %s", d)
         raise NotOmeZarr()
     return d["attributes"]["ome"]["version"]
