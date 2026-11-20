@@ -69,7 +69,10 @@ class Multipart(ErrorWriter):
             z.comment = make_zip_comment(v)
 
         size = self.zip_path.stat().st_size
-        maxsize = ceil(size / 3)
+        # some `zip` impls have an 8-character limit
+        # on the split size???
+        max_maxsize = int("9" * 8)
+        maxsize = min(ceil(size / 3), max_maxsize)
         container = self.zip_path.with_suffix("")
         container.mkdir()
         root = container / (self.zip_path.stem + ".zip")
